@@ -1,0 +1,35 @@
+import java.util.*;
+abstract class Shape {
+    abstract void numberOfSides();
+}
+class Rectangle extends Shape
+{
+    public void numberOfSides()
+    {
+       System.out.println("Rectangle has 4 sides");
+    }
+}
+class Triangle extends Shape
+{
+    public void numberOfSides()
+    {
+       System.out.println(" Triangle has 3 sides");
+    }
+}
+class Hexagon extends Shape
+{
+    public void numberOfSides()
+    {
+       System.out.println("Hexagon has 4 sides");
+    }
+}
+class geometry{
+    public static void main(String[] args) {
+        Shape r=new Rectangle();
+        Shape t=new Triangle();
+        Shape h=new Hexagon();
+        r. numberOfSides();
+        t. numberOfSides();
+         h. numberOfSides();
+    }
+}

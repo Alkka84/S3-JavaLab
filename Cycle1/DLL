@@ -1,0 +1,182 @@
+import java.util.Scanner;
+class Node
+{
+    int data;
+    Node next, prev;
+    public Node()
+    {
+        next = null;
+        prev = null;
+        data = 0;
+    }
+    public Node(int d, Node n, Node p)
+    {
+        data = d;
+        next = n;
+        prev = p;
+    }
+    public void setLinkNext(Node n)
+    {
+        next = n;
+    }
+    public void setLinkPrev(Node p)
+    {
+        prev = p;
+    }    
+    public Node getLinkNext()
+    {
+        return next;
+    }
+    public Node getLinkPrev()
+    {
+        return prev;
+    }
+    public void setData(int d)
+    {
+        data = d;
+    }
+    public int getData()
+    {
+        return data;
+    }
+}
+class linkedList
+{
+    Node start;
+    Node end ;
+    public int size;
+    public linkedList()
+    {
+        start = null;
+        end = null;
+        size = 0;
+    }
+    public void insertAtStart(int val)
+    {
+        Node nptr = new Node(val, null, null);        
+        if(start == null)
+        {
+            start = nptr;
+            end = start;
+        }
+        else
+        {
+            start.setLinkPrev(nptr);
+            nptr.setLinkNext(start);
+            start = nptr;
+        }
+        size++;
+    }
+    public void deleteVal(int value)
+    {    
+        int pos=-1;
+        Node c=start;
+        for(int i=1;i<=size;i++)
+        {
+            if(c.getData()==value)
+            {
+                pos=i;
+                break;
+            }
+            c=c.getLinkNext();
+        }
+        if (pos == -1)
+        {
+            System.out.println("Value not found in Linked List");
+            return;
+        }
+        if (pos == 1) 
+        {
+            if (size == 1)
+            {
+                start = null;
+                end = null;
+                size = 0;
+                return; 
+            }
+            start = start.getLinkNext();
+            start.setLinkPrev(null);
+            size--; 
+            return ;
+        }
+        if (pos == size)
+        {
+            end = end.getLinkPrev();
+            end.setLinkNext(null);
+            size-- ;
+        }
+        Node ptr = start.getLinkNext();
+        for (int i = 2; i <= size; i++)
+        {
+            if (i == pos)
+            {
+                Node p = ptr.getLinkPrev();
+                Node n = ptr.getLinkNext();
+                p.setLinkNext(n);
+                n.setLinkPrev(p);
+                size-- ;
+                return;
+            }
+            ptr = ptr.getLinkNext();
+        }        
+    }    
+    public void display()
+    {
+        System.out.print("\nDoubly Linked List = ");
+        if (size == 0) 
+        {
+            System.out.print("empty\n");
+            return;
+        }
+        if (start.getLinkNext() == null) 
+        {
+            System.out.println(start.getData() );
+            return;
+        }
+        Node ptr = start;
+        System.out.print(start.getData()+ " <-> ");
+        ptr = start.getLinkNext();
+        while (ptr.getLinkNext() != null)
+        {
+            System.out.print(ptr.getData()+ " <-> ");
+            ptr = ptr.getLinkNext();
+        }
+        System.out.print(ptr.getData()+ "\n");
+    }
+}
+
+public class DoublyLL1
+{    
+        public static void main(String[] args)
+        {             
+            Scanner sc = new Scanner(System.in);
+            linkedList list = new linkedList(); 
+            while(true)
+            {
+                System.out.println("1. Insert an element");
+                System.out.println("2. Delete an element");
+                System.out.println("3. Display List");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice:");
+                int choice = sc.nextInt();            
+                switch (choice)
+                {
+                case 1 : 
+                    System.out.println("Enter integer element to insert");
+                    int value=sc.nextInt();
+                    list.insertAtStart(value);                     
+                    break;                          
+                case 2 : 
+	                System.out.print("Enter the value to be deleted from the List:");
+                    value=sc.nextInt();
+                    list.deleteVal(value);
+                    break;                         
+                case 3 : 
+                    list.display();
+                    break;                                          
+                case 4 : 
+                    System.exit(0);
+                }
+             }          
+        }
+ }
